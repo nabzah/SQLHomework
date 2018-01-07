@@ -1,16 +1,120 @@
-SQL Assignment 1
+                                           SQL Assignment1: SQL Select and Aggregations
+                                           
+1.	Which destination in the flights database is the furthest distance away, based on information in the flights table. Show the SQL query(s) that support your conclusion. 
 
-1.	Which destination in the flights database is the furthest distance away, based on information in the flights table.  Show the SQL query(s) that support your conclusion. 
+select MAX(distance) from flights;
+4983
 
-SELECT MAX (disctance) FROM flights;
 
-2.	What are the different numbers of engines in the planes table?  For each number of engines, which aircraft have the most number of seats?  Show the SQL statement(s) that support your result.
- SELECT engines FROM planes WHERE seats=MAX;
+
+2.	What are the different numbers of engines in the planes table? For each number of engines, which aircraft have the most number of seats? Show the SQL statement(s) that support your result.
+
+	  a/ select engines from planes group by engines;
+
+	   1
+
+	   2
+
+	   3
+
+	   4
+
+	
+	
+	   b/ select engines, MAX(seats) from planes group by engines;
+
+	
+
+	   1   16
+
+	   2   400
+
+	   3   379
+
+	   4   450
+
+
+
 
 3.	Show the total number of flights. 
-  SELECT count 
-4. Show the total number of flights by airline (carrier). 
-5. Show all of the airlines, ordered by number of flights in descending order. 
-6. Show only the top 5 airlines, by number of flights, ordered by number of flights in descending order. 
-7. Show only the top 5 airlines, by number of flights of distance 1,000 miles or greater, ordered by number of flights in descending order. 
-8. Create a question that (a) uses data from the flights database, and (b) requires aggregation to answer it, and write down both the question, and the query that answers the questio
+
+select SUM(flight) from flights;
+'664096549'
+
+4.	Show the total number of flights by airline (carrier). 
+
+select SUM(flight), carrier from flights GROUP BY carrier;
+
+# SUM(flight), carrier
+'65847885', '9E'
+'29978858', 'AA'
+'8706', 'AS'
+'36669259', 'B6'
+'66141518', 'DL'
+'250500399', 'EV'
+'469385', 'F9'
+'1651670', 'FL'
+'17442', 'HA'
+'101761406', 'MQ'
+'174263', 'OO'
+'56289091', 'UA'
+'33468909', 'US'
+'1137352', 'VX'
+'18007421', 'WN'
+'1972985', 'YV'
+
+
+
+
+5.	Show all of the airlines, ordered by number of flights in descending order. 
+
+SELECT carrier, SUM(flight) FROM flights GROUP BY carrier ORDER BY SUM(flight) DESC;
+
+# carrier, SUM(flight)
+'EV', '250500399'
+'MQ', '101761406'
+'DL', '66141518'
+'9E', '65847885'
+'UA', '56289091'
+'B6', '36669259'
+'US', '33468909'
+'AA', '29978858'
+'WN', '18007421'
+'YV', '1972985'
+'FL', '1651670'
+'VX', '1137352'
+'F9', '469385'
+'OO', '174263'
+'HA', '17442'
+'AS', '8706'
+
+6.	Show only the top 5 airlines, by number of flights, ordered by number of flights in descending order. 
+SELECT carrier, sum(flight) from flights group by carrier order by sum(flight) desc limit 5; 
+
+# carrier, sum(flight)
+'EV', '250500399'
+'MQ', '101761406'
+'DL', '66141518'
+'9E', '65847885'
+'UA', '56289091'
+
+7.	Show only the top 5 airlines, by number of flights of distance 1,000 miles or greater, ordered by number of flights in descending order. 
+
+SELECT carrier, SUM(flight)
+FROM flights
+WHERE distance >= 1000
+GROUP BY carrier
+ORDER BY SUM(flight) DESC
+LIMIT 5;
+
+8.	Create a question that (a) uses data from the flights database, and (b) requires aggregation to answer it, and write down both the question, and the query that answers the question.
+Which month of the year has the most number of flights?
+
+SELECT month, MAX(flight) FROM flights;
+
+# month, MAX(flight)
+1, 8500
+
+
+	
+
